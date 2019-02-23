@@ -93,7 +93,7 @@ export default {
   watch: {
     user(newUser) {
       if (newUser !== null && newUser !== undefined) {
-        this.$router.push("/profile");
+        this.$router.push("/user");
       }
     }
   },

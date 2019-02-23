@@ -13,9 +13,9 @@
           <v-flex xs12 md5 class="mb-3">
             <ProfileComponent/>
           </v-flex>
-          <!-- <v-flex xs12 md6 offset-md1>
-            <Instruction :instructions="instructions"/>
-          </v-flex>-->
+          <v-flex xs12 md6 offset-md1>
+            <InstructionComponent :instructions="instructions"/>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-card-text>
@@ -23,40 +23,22 @@
 </template>
 <script>
 import ProfileComponent from "@/components/user/ProfileComponent";
-// import Instruction from "@/components/cbt/Instruction";
+import InstructionComponent from "@/components/exam/InstructionComponent";
 
 export default {
   components: {
-    ProfileComponent
+    ProfileComponent,
+    InstructionComponent
   },
   methods: {},
   computed: {
-    instructions() {
-      return this.$store.getters["exam/instructions"];
-    },
     user() {
       return this.$store.getters["user"];
+    },
+    instructions() {
+      return this.$store.getters["instructions"];
     }
   }
 };
 </script>
 
-// <script>
-import ProfileComponent from "@/components/user/ProfileComponent";
-// import Instruction from "@/components/cbt/Instruction";
-
-export default {
-  components: {
-    ProfileComponent
-  },
-  methods: {},
-  computed: {
-    instructions() {
-      return this.$store.getters["exam/instructions"];
-    },
-    user() {
-      return this.$store.getters["user"];
-    }
-  }
-};
-</script>

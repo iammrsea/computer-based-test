@@ -1,9 +1,9 @@
 export default {
   state: {
     instructions: [
-      "The test is going to last for 2hrs30mins and a total of 200 questions",
-      "It comprises four subjects, 50 questions per subject ",
-      "English Language is compulsory, but you can choose any other 3 subjects of your choice",
+      "The test is going to last for 2hrs30mins/1hr30mins and a total of 200/100 questions depending on your choice",
+      "It comprises four subjects, 50/25 questions per subject ",
+      "English Language is compulsory, but you can choose any other 3 subjects of your choice. You can only choose a minimum of additional 2 subjects and a maximum of 3",
       "You are not expected to answer the questions in any particular order; you can skip questions and return to them later",
       "There is calculator at the top right corner in case you need one",
       "Cheating is not allowed",
