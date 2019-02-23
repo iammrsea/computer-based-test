@@ -6,16 +6,8 @@ export default {
   },
   mutations: {
     setUser(state, userPayload) {
-      // console.log(userPayload);
       state.user = userPayload;
     }
-    // setUserPerformance(state, performancePayload) {
-    //   if (typeof performancePayload === "object") {
-    //     stat.user.performance.push(performancePayload);
-    //   } else {
-    //     state.user.performance = performancePayload;
-    //   }
-    // }
   },
   actions: {
     signUserUp({ commit }, userPayload) {
@@ -139,6 +131,23 @@ export default {
   getters: {
     user(state) {
       return state.user;
+    },
+    featuredStats(state) {
+      if (state.user) {
+        // console.log(state.user);
+        return state.user.performance
+          .sort((statA, statB) => {
+            return statA.date < statB.date;
+          })
+          .slice(0, 2);
+      }
+    },
+    allStats(state) {
+      if (state.user) {
+        return state.user.performance.sort((statA, statB) => {
+          return statA.date < statB.date;
+        });
+      }
     }
   }
 };
