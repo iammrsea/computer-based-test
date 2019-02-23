@@ -22,7 +22,13 @@
     </v-card-title>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn class="red white--text" flat>Remove</v-btn>
+      <v-btn
+        class="red white--text"
+        :loading="loading"
+        :disabled="loading"
+        flat
+        @click="onRemove(performance.id)"
+      >Remove</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -32,6 +38,11 @@ export default {
     performance: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    loading() {
+      return this.$store.getters["loading"];
     }
   },
   filters: {
@@ -49,6 +60,12 @@ export default {
       const mins = myDate.getMinutes();
       const secs = myDate.getSeconds();
       return `${hrs}:${mins}:${secs}`;
+    }
+  },
+  methods: {
+    onRemove(id) {
+      this.$store.dispatch("removeStat", id);
+      console.log(id);
     }
   }
 };

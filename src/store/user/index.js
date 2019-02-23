@@ -7,6 +7,14 @@ export default {
   mutations: {
     setUser(state, userPayload) {
       state.user = userPayload;
+    },
+    removeStat(state, idPayload) {
+      if (state.user) {
+        const indexOfStatToRemove = state.user.performance.findIndex(stat => {
+          idPayload === stat.id;
+        });
+        state.user.performance.splice(indexOfStatToRemove, 1);
+      }
     }
   },
   actions: {
@@ -86,6 +94,25 @@ export default {
           // console.log(error);
         });
     },
+    removeStat({ commit, getters }, statId) {
+      commit("setLoading", true, { root: true });
+      commit("clearError", null, { root: true });
+      firestore
+        .collection("users")
+        .doc(getters.user.id)
+        .collection("performances")
+        .doc(statId)
+        .delete()
+        .then(() => {
+          commit("removeStat", statId);
+          commit("setLoading", false, { root: true });
+        })
+        .catch(error => {
+          commit("setLoading", false, { root: true });
+          commit("setError", error, { root: true });
+          // console.log(error);
+        });
+    },
     fetchUserPerformances({ commit, getters }) {
       commit("setLoading", true, { root: true });
       commit("clearError", null, { root: true });
@@ -102,7 +129,8 @@ export default {
               correct: doc.get("correct"),
               wrong: doc.get("wrong"),
               total: doc.get("total"),
-              date: doc.get("date")
+              date: doc.get("date"),
+              id: doc.id
             };
             performances.push(performance);
           });
