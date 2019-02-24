@@ -1,6 +1,6 @@
 <template>
   <v-alert
-    dismissible
+    :dismissible="dismissible"
     :value="alert"
     :type="type"
     transition="scale-transition"
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["message", "type"],
+  props: ["message", "type", "dismissible"],
   data() {
     return {
       alert: true

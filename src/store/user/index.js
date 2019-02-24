@@ -24,18 +24,17 @@ export default {
       auth
         .createUserWithEmailAndPassword(userPayload.email, userPayload.password)
         .then(user => {
-          commit("setLoading", false, { root: true });
           const newUser = {
             id: user.user.uid,
             email: userPayload.email,
             performance: []
           };
           commit("setUser", newUser);
+          commit("setLoading", false, { root: true });
         })
         .catch(error => {
           commit("setLoading", false, { root: true });
           commit("setError", error, { root: true });
-          // console.log(error);
         });
     },
     signUserIn({ commit }, userPayload) {
@@ -44,14 +43,14 @@ export default {
       auth
         .signInWithEmailAndPassword(userPayload.email, userPayload.password)
         .then(user => {
-          commit("setLoading", false, { root: true });
+          this.performanceDialog = false;
           const newUser = {
             id: user.user.uid,
             email: userPayload.email,
             performance: []
           };
           commit("setUser", newUser);
-          // console.log(newUser);
+          this.performanceDialog = false;
         })
         .catch(error => {
           commit("setLoading", false, { root: true });
@@ -80,10 +79,13 @@ export default {
             ...performancePayload,
             id: docRef.id
           };
+          const pArray = getters.user.performance;
+          pArray.push(performance);
+
           const user = {
             id: getters.user.id,
             email: getters.user.email,
-            performance: getters.user.performance.push(performance)
+            performance: pArray
           };
           commit("setLoading", false, { root: true });
           commit("setUser", user);
@@ -91,7 +93,6 @@ export default {
         .catch(error => {
           commit("setLoading", false, { root: true });
           commit("setError", error, { root: true });
-          // console.log(error);
         });
     },
     removeStat({ commit, getters }, statId) {
@@ -110,7 +111,6 @@ export default {
         .catch(error => {
           commit("setLoading", false, { root: true });
           commit("setError", error, { root: true });
-          // console.log(error);
         });
     },
     fetchUserPerformances({ commit, getters }) {
@@ -145,7 +145,6 @@ export default {
         .catch(error => {
           commit("setLoading", false, { root: true });
           commit("setError", error, { root: true });
-          // console.log(error);
         });
     },
     autoSignin({ commit }, userPayload) {
@@ -162,10 +161,9 @@ export default {
     },
     featuredStats(state) {
       if (state.user) {
-        // console.log(state.user);
         return state.user.performance
           .sort((statA, statB) => {
-            return statA.date < statB.date;
+            return statB.date - statA.date;
           })
           .slice(0, 2);
       }
@@ -173,7 +171,7 @@ export default {
     allStats(state) {
       if (state.user) {
         return state.user.performance.sort((statA, statB) => {
-          return statA.date < statB.date;
+          return statB.date - statA.date;
         });
       }
     }

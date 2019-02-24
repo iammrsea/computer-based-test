@@ -15,8 +15,12 @@
         </div>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn flat color="teal" @click="proceed">Proceed to select subjects</v-btn>
+        <v-btn
+          flat
+          color="teal"
+          class="text-capitalize ml-0 pl-0"
+          @click="proceed"
+        >Proceed to select subjects</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>

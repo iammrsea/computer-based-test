@@ -6,6 +6,8 @@ import Signin from "./views/user/Signin.vue";
 import Signup from "./views/user/Signup.vue";
 import UserHome from "./views/user/UserHome.vue";
 import Exam from "./views/exam/Exam.vue";
+import StartExam from "./views/exam/StartExam.vue";
+import Result from "./views/exam/Result.vue";
 import AuthGuard from "./auth-guard";
 Vue.use(Router);
 
@@ -43,6 +45,18 @@ const router = new Router({
           path: "exam",
           name: "exam",
           component: Exam,
+          beforeEnter: AuthGuard
+        },
+        {
+          path: "start-exam",
+          name: "start-exam",
+          component: StartExam,
+          beforeEnter: AuthGuard
+        },
+        {
+          path: "result",
+          name: "result",
+          component: Result,
           beforeEnter: AuthGuard
         }
       ]

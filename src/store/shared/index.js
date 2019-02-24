@@ -17,6 +17,9 @@ export default {
   actions: {
     clearError(context) {
       context.commit("clearError");
+    },
+    setLoading({ commit }, payload) {
+      commit("setLoading", payload);
     }
   },
   getters: {

@@ -76,6 +76,7 @@ export default {
   watch: {
     user(newUser) {
       if (newUser !== null && newUser !== undefined) {
+        // this.$router.push(this.$route.path);
         this.$router.push("/user");
       }
     }
