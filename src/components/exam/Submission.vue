@@ -49,7 +49,7 @@ export default {
         correctAnswers,
         this.questions
       );
-
+      this.$store.commit("userSelectedSubjects", []);
       this.$store.commit("finalResult", result);
       this.$store.commit("resultToSave", resultToSave);
       this.$router.push("result");

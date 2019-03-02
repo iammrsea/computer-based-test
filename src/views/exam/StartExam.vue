@@ -17,6 +17,7 @@ import Calculator from "@/components/exam/Calculator";
 import { get25Questions, get50Questions } from "@/services/storyblok.js";
 import marked from "marked";
 import { computeResult } from "@/utils/computeResult";
+import { savePageAndPerPage, retrieveNextPage } from "@/utils/handlePaging";
 export default {
   components: {
     Pagination,
@@ -110,7 +111,7 @@ export default {
         correctAnswers,
         this.questions
       );
-
+      this.$store.commit("userSelectedSubjects", []);
       this.$store.commit("finalResult", result);
       this.$store.commit("resultToSave", resultToSave);
       this.$router.push("result");
@@ -124,7 +125,6 @@ export default {
     },
     loadQuestions(examVariant) {
       const selectedSubs = this.$store.getters["userSelectedSubjects"];
-      // this.$store.commit("userSelectedSubjects", []);
 
       const cv = this.$store.getters["cacheVersion"];
 
@@ -137,28 +137,30 @@ export default {
             get50Questions({
               cv: cv,
               starts_with: "English-Language",
-              page: 1
+              page: retrieveNextPage(sub)
             }).then(res => {
+              savePageAndPerPage(retrieveNextPage(sub), 50, res.total, sub);
               res.data.stories.forEach(story => {
-                // console.log(story.content);
                 this.pushDataToArray("English Language", story);
               });
             });
-          }
-          get50Questions({
-            cv: cv,
-            starts_with: sub,
-            page: 1
-          })
-            .then(res => {
-              res.data.stories.forEach(story => {
-                this.pushDataToArray(sub, story);
-                this.$store.dispatch("setLoading", false);
-              });
+          } else {
+            get50Questions({
+              cv: cv,
+              starts_with: sub,
+              page: retrieveNextPage(sub)
             })
-            .catch(error => {
-              this.$store.dispatch("setError", error);
-            });
+              .then(res => {
+                savePageAndPerPage(retrieveNextPage(sub), 50, res.total, sub);
+                res.data.stories.forEach(story => {
+                  this.pushDataToArray(sub, story);
+                  this.$store.dispatch("setLoading", false);
+                });
+              })
+              .catch(error => {
+                this.$store.dispatch("setError", error);
+              });
+          }
         });
       } else {
         this.$store.dispatch("setLoading", true);
@@ -168,28 +170,31 @@ export default {
             get25Questions({
               cv: cv,
               starts_with: "English-Language",
-              page: 1
+              page: retrieveNextPage(sub)
             }).then(res => {
+              savePageAndPerPage(retrieveNextPage(sub), 25, res.total, sub);
+
               res.data.stories.forEach(story => {
-                //console.log(story.content);
                 this.pushDataToArray("English Language", story);
               });
             });
-          }
-          get25Questions({
-            cv: cv,
-            starts_with: sub,
-            page: 1
-          })
-            .then(res => {
-              res.data.stories.forEach(story => {
-                this.pushDataToArray(sub, story);
-                this.$store.dispatch("setLoading", false);
-              });
+          } else {
+            get25Questions({
+              cv: cv,
+              starts_with: sub,
+              page: retrieveNextPage(sub)
             })
-            .catch(error => {
-              this.$store.dispatch("setError", error);
-            });
+              .then(res => {
+                savePageAndPerPage(retrieveNextPage(sub), 25, res.total, sub);
+                res.data.stories.forEach(story => {
+                  this.pushDataToArray(sub, story);
+                  this.$store.dispatch("setLoading", false);
+                });
+              })
+              .catch(error => {
+                this.$store.dispatch("setError", error);
+              });
+          }
         });
       }
     }
