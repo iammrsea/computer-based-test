@@ -12,23 +12,26 @@ export default {
       "If you are caught up with time, the system would sumbit your answers automatically",
       "Wait for your result when the test ends"
     ],
-    subjects: [
-      "English Language",
-      "Mathematics",
-      "Physics",
-      "Chemistry",
-      "Biology",
-      "Economics",
-      "Accounting",
-      "CRS",
-      "Literature-in-English",
-      "Commerce",
-      "Government"
-    ],
+    // subjects: [
+    //   "English Language",
+    //   "Mathematics",
+    //   "Physics",
+    //   "Chemistry",
+    //   "Biology",
+    //   "Economics",
+    //   "Accounting",
+    //   "CRS",
+    //   "Literature-in-English",
+    //   "Commerce",
+    //   "Government"
+    // ],
+    subjects: [],
+    cacheVersion: "",
     userSelectedSubjects: [],
     examVariant: null,
     questions: [],
-    finalResult: null
+    finalResult: null,
+    resultToSave: null
   },
   mutations: {
     userSelectedSubjects(state, selectedSubPayload) {
@@ -42,6 +45,15 @@ export default {
     },
     finalResult(state, resultPayload) {
       state.finalResult = resultPayload;
+    },
+    resultToSave(state, resultPayload) {
+      state.resultToSave = resultPayload;
+    },
+    subjects(state, subjectsPayload) {
+      state.subjects = subjectsPayload;
+    },
+    cacheVersion(state, cachePayload) {
+      state.cacheVersion = cachePayload;
     }
   },
   actions: {
@@ -50,6 +62,12 @@ export default {
     },
     examVariant({ commit }, examVariantPayload) {
       commit("examVariant", examVariantPayload);
+    },
+    subjects({ commit }, subjectsPayload) {
+      commit("subjects", subjectsPayload);
+    },
+    cacheVersion({ commit }, cachePayload) {
+      commit("cacheVersion", cachePayload);
     }
   },
   getters: {
@@ -69,7 +87,21 @@ export default {
       return state.questions;
     },
     finalResult(state) {
-      return state.finalResult;
+      if (state.finalResult) {
+        const result = [];
+        for (let [k, v] of Object.entries(state.finalResult)) {
+          if (k !== "date") {
+            result.push(v);
+          }
+        }
+        return result;
+      }
+    },
+    cacheVersion(state) {
+      return state.cacheVersion;
+    },
+    resultToSave(state) {
+      return state.resultToSave;
     }
   }
 };

@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     result() {
-      return this.$store.getters["finalResult"];
+      return this.$store.getters["resultToSave"];
     },
     loading() {
       return this.$store.getters["loading"];

@@ -14,13 +14,8 @@
           <p class="pa-2">{{instruction}}</p>
         </div>
       </v-card-text>
-      <v-card-actions>
-        <v-btn
-          flat
-          color="teal"
-          class="text-capitalize ml-0 pl-0"
-          @click="proceed"
-        >Proceed to select subjects</v-btn>
+      <v-card-actions class="text-xs-center">
+        <v-btn flat color="teal" @click="proceed">Choose Subjects</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>

@@ -9,6 +9,9 @@ import Exam from "./views/exam/Exam.vue";
 import StartExam from "./views/exam/StartExam.vue";
 import Result from "./views/exam/Result.vue";
 import AuthGuard from "./auth-guard";
+
+import Testing from "./views/Testing.vue";
+
 Vue.use(Router);
 
 const router = new Router({
@@ -29,6 +32,11 @@ const router = new Router({
       path: "/signup",
       name: "signup",
       component: Signup
+    },
+    {
+      path: "/testing",
+      name: "testing",
+      component: Testing
     },
     {
       path: "/user",

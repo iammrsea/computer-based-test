@@ -11,10 +11,18 @@
           <v-container>
             <v-card-text>
               <span>Your Performance Statistics:</span>
-              <v-card-text>Correct Answers: {{result['correct']}}</v-card-text>
-              <v-card-text>Wrong Answers: {{result['wrong']}}</v-card-text>
-              <v-card-text>Total Questions Answered: {{result['total']}}</v-card-text>
-              <v-card-text>Final Score: {{result['correct']}}/{{result['total']}}</v-card-text>
+              <div v-for="(oneResult,i) in result" :key="i">
+                <div v-if="oneResult.score!==undefined">
+                  <v-card-text class="headline">Total Score: {{oneResult.score}}</v-card-text>
+                  <v-divider></v-divider>
+                </div>
+                <div v-else>
+                  <v-card-text class="font-weight-bold">{{oneResult.name}}</v-card-text>
+                  <v-card-text>Correct Answers: {{oneResult.correct}}</v-card-text>
+                  <v-card-text>Wrong Answers: {{oneResult.wrong}}</v-card-text>
+                  <v-divider></v-divider>
+                </div>
+              </div>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>

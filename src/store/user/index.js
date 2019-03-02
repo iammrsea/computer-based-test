@@ -11,7 +11,7 @@ export default {
     removeStat(state, idPayload) {
       if (state.user) {
         const indexOfStatToRemove = state.user.performance.findIndex(stat => {
-          idPayload === stat.id;
+          return idPayload === stat.id;
         });
         state.user.performance.splice(indexOfStatToRemove, 1);
       }
@@ -126,10 +126,7 @@ export default {
           const performances = [];
           querySnapshot.forEach(doc => {
             const performance = {
-              correct: doc.get("correct"),
-              wrong: doc.get("wrong"),
-              total: doc.get("total"),
-              date: doc.get("date"),
+              ...doc.data(),
               id: doc.id
             };
             performances.push(performance);

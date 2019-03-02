@@ -6,6 +6,7 @@ import router from "./router";
 import AlertComponent from "./components/Alert.vue";
 import { auth } from "./services/firebase";
 import ScrollReveal from "./plugins/scrollreveal";
+import { loadSubjects } from "./utils/loadSubjects.js";
 
 Vue.config.productionTip = false;
 Vue.component("app-alert", AlertComponent);
@@ -17,7 +18,7 @@ Vue.use(ScrollReveal, {
   distance: "30px"
 });
 
-new Vue({
+const vm = new Vue({
   router,
   store,
   render: h => h(App),
@@ -26,6 +27,7 @@ new Vue({
       if (user) {
         this.$store.dispatch("autoSignin", user);
         this.$store.dispatch("fetchUserPerformances");
+        loadSubjects(vm);
       }
     });
   }

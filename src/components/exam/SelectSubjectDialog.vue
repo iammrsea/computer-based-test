@@ -1,12 +1,7 @@
 <template>
   <v-container>
     <v-dialog v-model="selectDialog" persistent width="500">
-      <v-btn
-        flat
-        color="teal"
-        slot="activator"
-        class="pl-0 text-capitalize"
-      >Please click to select your subjects</v-btn>
+      <v-btn flat color="teal" slot="activator">Proceed</v-btn>
 
       <v-card>
         <v-container>

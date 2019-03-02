@@ -8,19 +8,28 @@
 
     <Calculator class="calculator-position"/>
 
-    <Pagination :questions="myData"/>
+    <Pagination :questions="questions"/>
   </v-container>
 </template>
 <script>
 import Pagination from "@/components/exam/Pagination";
 import Calculator from "@/components/exam/Calculator";
+import { get25Questions, get50Questions } from "@/services/storyblok.js";
+import marked from "marked";
+import { computeResult } from "@/utils/computeResult";
 export default {
   components: {
     Pagination,
     Calculator
   },
-  mounted() {
-    // this.startTime();
+  data() {
+    return {
+      seconds: 0,
+      minutes: 1,
+      hours: 0,
+
+      questions: []
+    };
   },
   created() {
     let examVariant = this.$store.getters["examVariant"];
@@ -29,11 +38,7 @@ export default {
       this.minutes = 30;
       this.hours = 2;
     }
-    this.$store.dispatch("setLoading", true);
-    this.loadData().then(data => {
-      this.myData = data;
-      this.$store.dispatch("setLoading", false);
-    });
+    this.loadQuestions(examVariant);
   },
 
   computed: {
@@ -89,88 +94,105 @@ export default {
     },
     endExam() {
       clearInterval(this._interval);
-      let correctAnswers = this.myData.filter(question => {
-        return question.answer === question.selectedOption;
+      const userSelectedSubjects = this.$store.getters["userSelectedSubjects"];
+      let correctAnswers = this.questions.filter(question => {
+        return question.answer === "" + question.selectedOption;
       });
-      let result = {
+      let resultToSave = {
         correct: correctAnswers.length,
-        wrong: this.myData.length - correctAnswers.length,
-        total: this.myData.length,
+        wrong: this.questions.length - correctAnswers.length,
+        total: this.questions.length,
         date: new Date()
       };
 
-      this.$store.commit("question/finalResult", result);
+      let result = computeResult(
+        userSelectedSubjects,
+        correctAnswers,
+        this.questions
+      );
+
+      this.$store.commit("finalResult", result);
+      this.$store.commit("resultToSave", resultToSave);
       this.$router.push("result");
     },
-    loadData() {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          const data = [
-            {
-              question: "Which of the following is not a programming langauage",
-              option1: "javascript",
-              option2: "CSS",
-              option3: "java",
-              option4: "python",
-              answer: 2,
-              selectedOption: null
-            },
-            {
-              question: "Which of the following is not a programming langauage",
-              option1: "javascript",
-              option2: "CSS",
-              option3: "java",
-              option4: "python",
-              answer: 2,
-              selectedOption: null
-            },
-            {
-              question: "Which of the following is not a programming langauage",
-              option1: "javascript",
-              option2: "CSS",
-              option3: "java",
-              option4: "python",
-              answer: 2,
-              selectedOption: null
-            },
-            {
-              question: "Which of the following is not a programming langauage",
-              option1: "javascript",
-              option2: "CSS",
-              option3: "java",
-              option4: "python",
-              answer: 2,
-              selectedOption: null
-            },
-            {
-              question: "Which of the following is not a programming langauage",
-              option1: "javascript",
-              option2: "CSS",
-              option3: "java",
-              option4: "python",
-              answer: 2,
-              selectedOption: null
-            }
-          ];
+    pushDataToArray(name, story) {
+      const content = story.content;
+      content.selectedOption = null;
+      content.question = marked(content.question);
+      content.name = name;
+      this.questions.push(content);
+    },
+    loadQuestions(examVariant) {
+      const selectedSubs = this.$store.getters["userSelectedSubjects"];
+      // this.$store.commit("userSelectedSubjects", []);
 
-          resolve(data);
-        }, 5000);
-      });
+      const cv = this.$store.getters["cacheVersion"];
+
+      if (examVariant === 1) {
+        this.$store.dispatch("setLoading", true);
+        this.$store.dispatch("setError", false);
+
+        selectedSubs.forEach(sub => {
+          if (sub === "English Language") {
+            get50Questions({
+              cv: cv,
+              starts_with: "English-Language",
+              page: 1
+            }).then(res => {
+              res.data.stories.forEach(story => {
+                // console.log(story.content);
+                this.pushDataToArray("English Language", story);
+              });
+            });
+          }
+          get50Questions({
+            cv: cv,
+            starts_with: sub,
+            page: 1
+          })
+            .then(res => {
+              res.data.stories.forEach(story => {
+                this.pushDataToArray(sub, story);
+                this.$store.dispatch("setLoading", false);
+              });
+            })
+            .catch(error => {
+              this.$store.dispatch("setError", error);
+            });
+        });
+      } else {
+        this.$store.dispatch("setLoading", true);
+        this.$store.dispatch("setError", false);
+        selectedSubs.forEach(sub => {
+          if (sub === "English Language") {
+            get25Questions({
+              cv: cv,
+              starts_with: "English-Language",
+              page: 1
+            }).then(res => {
+              res.data.stories.forEach(story => {
+                //console.log(story.content);
+                this.pushDataToArray("English Language", story);
+              });
+            });
+          }
+          get25Questions({
+            cv: cv,
+            starts_with: sub,
+            page: 1
+          })
+            .then(res => {
+              res.data.stories.forEach(story => {
+                this.pushDataToArray(sub, story);
+                this.$store.dispatch("setLoading", false);
+              });
+            })
+            .catch(error => {
+              this.$store.dispatch("setError", error);
+            });
+        });
+      }
     }
-  },
-
-  data() {
-    return {
-      seconds: 0,
-      minutes: 20,
-      hours: 0,
-
-      fullSeconds: 0,
-      fullMinutes: 30,
-      fullHours: 2,
-
-      myData: []
-    };
   }
 };
 </script>

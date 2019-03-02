@@ -46,7 +46,7 @@ export default {
     links() {
       const user = this.$store.getters.user;
       if (user !== null && user !== undefined) {
-        return [{ icon: "person", text: "Profile", route: "/profile" }];
+        return [{ icon: "person", text: "Profile", route: "/user" }];
       } else {
         return [
           { icon: "face", text: "Sign up", route: "/signup" },

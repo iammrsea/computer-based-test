@@ -6,6 +6,9 @@
       </v-flex>
     </v-layout>
     <div v-else>
+      <div class="mb-2" v-if="error">
+        <app-alert :type="'error'" :message="error.message" @alert-dismissed="onDismissed"></app-alert>
+      </div>
       <div v-for="(question,i) in paginatedData" :key="i">
         <Question :question="question"/>
       </div>
@@ -77,6 +80,9 @@ export default {
     },
     loading() {
       return this.$store.getters["loading"];
+    },
+    error() {
+      return this.$store.getters["error"];
     }
   }
 };

@@ -1,7 +1,12 @@
 <template>
   <div class="mt-5">
     <v-container>
-      <v-layout row wrap>
+      <v-layout v-if="loading && spin">
+        <v-flex xs12 class="text-xs-center progress">
+          <v-progress-circular :size="70" :width="7" color="primary" indeterminate></v-progress-circular>
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap v-else>
         <v-flex xs12 sm6 offset-sm3>
           <div class="mb-2" v-if="error">
             <app-alert :type="'error'" :message="error.message" @alert-dismissed="onDismissed"></app-alert>
@@ -38,7 +43,7 @@
                     <v-btn
                       class="right primary text-capitalize"
                       @click="signIn"
-                      :loading="loading"
+                      :loading="loading && logIn"
                       :disabled="loading"
                       flat
                     >Sign In</v-btn>
@@ -59,7 +64,9 @@ export default {
     return {
       valid: true,
       email: "",
-      password: ""
+      password: "",
+      logIn: true,
+      spin: true
     };
   },
   computed: {
@@ -85,6 +92,7 @@ export default {
   methods: {
     signIn() {
       if (this.$refs.form.validate()) {
+        this.spin = false;
         this.$store.dispatch("signUserIn", {
           email: this.email,
           password: this.password

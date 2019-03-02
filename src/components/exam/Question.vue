@@ -1,13 +1,16 @@
 <template>
   <v-card class="mb-1" raised hover>
     <v-container>
-      <v-card-title>{{question.question}}</v-card-title>
-      <v-card-text>
-        <v-radio-group v-model="question.selectedOption">
-          <v-radio :label=" 'A '+question.option1" color="teal" :value="1"></v-radio>
-          <v-radio :label="'B '+question.option2" color="teal" :value="2"></v-radio>
-          <v-radio :label="'C '+question.option3" color="teal" :value="3"></v-radio>
-          <v-radio :label="'D '+question.option4" color="teal" :value="4"></v-radio>
+      <div v-if="question.passage!==''&& question.passage!== undefined">
+        <v-card-text>{{question.passage}}</v-card-text>
+      </div>
+      <v-card-text v-html="question.question" class="ma-0"></v-card-text>
+      <v-card-text class="ma-0">
+        <v-radio-group v-model="question.selectedOption" class="ma-0">
+          <v-radio :label="question.option_one" color="teal" :value="1"></v-radio>
+          <v-radio :label="question.option_two" color="teal" :value="2"></v-radio>
+          <v-radio :label="question.option_three" color="teal" :value="3"></v-radio>
+          <v-radio :label="question.option_four" color="teal" :value="4"></v-radio>
         </v-radio-group>
       </v-card-text>
     </v-container>

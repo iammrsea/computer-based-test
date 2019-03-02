@@ -95,7 +95,7 @@ export default {
   },
   methods: {
     onStart() {
-      this.$store.commit("userSelectedSubjects", []);
+      // this.$store.commit("userSelectedSubjects", []);
       this.$router.push("start-exam");
     }
   }
