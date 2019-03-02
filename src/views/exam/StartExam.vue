@@ -26,8 +26,8 @@ export default {
   data() {
     return {
       seconds: 0,
-      minutes: 1,
-      hours: 0,
+      minutes: 30,
+      hours: 1,
 
       questions: []
     };

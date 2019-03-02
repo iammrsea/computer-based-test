@@ -25,24 +25,20 @@
             </v-layout>
           </v-card-title>
           <v-card-text>
-            <v-layout row wrap>
+            <v-layout v-if="user" row>
+              <v-flex class="text-xs-center">
+                <v-btn large flat class="primary" @click="onProfile">
+                  <v-icon left>person</v-icon>
+                  <span class="mt-1">Profile</span>
+                </v-btn>
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap v-else>
               <v-flex xs6 sm6 class="text-sm-right text-xs-center">
-                <v-btn
-                  large
-                  flat
-                  class="primary text-capitalize"
-                  v-scroll-reveal="left"
-                  to="/signin"
-                >Sign In</v-btn>
+                <v-btn large flat class="primary text-capitalize" to="/signin">Sign In</v-btn>
               </v-flex>
               <v-flex xs6 sm6 class="text-sm-left text-xs-center">
-                <v-btn
-                  large
-                  flat
-                  class="primary text-capitalize"
-                  v-scroll-reveal="right"
-                  to="signup"
-                >Sign Up</v-btn>
+                <v-btn large flat class="primary text-capitalize" to="signup">Sign Up</v-btn>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -53,7 +49,6 @@
 </template>
 
 <script>
-// import { getListOfSubjects, getCV } from "@/services/storyblok.js";
 export default {
   computed: {
     loading() {
@@ -61,47 +56,15 @@ export default {
     },
     error() {
       return this.$store.getters["error"];
+    },
+    user() {
+      return this.$store.getters["user"];
     }
   },
-  created() {
-    // this.$store.dispatch("setLoading", true);
-    // this.$store.dispatch("setError", false);
-    // getCV()
-    //   .then(res => {
-    //     this.$store.dispatch('cacheVersion',res.data.space.version)
-    //     return getListOfSubjects({
-    //       starts_with: "subjects"
-    //     });
-    //   })
-    //   .then(res => {
-    //     console.log(res.data.stories);
-    //     this.$store.dispatch("setLoading", false);
-    //     const subjects = [];
-    //     const stories = res.data.stories;
-    //     stories.forEach(story => {
-    //       subjects.push(story.content.name);
-    //     });
-    //     this.$store.dispatch("subjects", subjects);
-    //   })
-    //   .catch(error => {
-    //     this.$store.dispatch("setError", error);
-    //     console.log(error);
-    //   });
-  },
-  data() {
-    return {
-      top: {
-        origin: "top"
-      },
-      right: {
-        origin: "right"
-      },
-      left: {
-        origin: "left"
-      },
-      cv: ""
-    };
-  },
-  methods: {}
+  methods: {
+    onProfile() {
+      this.$router.push("/user");
+    }
+  }
 };
 </script>

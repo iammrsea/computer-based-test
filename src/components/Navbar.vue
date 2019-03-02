@@ -2,8 +2,11 @@
   <div>
     <v-toolbar flat app dark class="primary">
       <v-toolbar-side-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title class="text-uppercase">
-        <router-link to="/" tag="span" style="cursor:pointer">TripleS</router-link>
+      <v-toolbar-title class="text-capitalize">
+        <router-link to="/" tag="span" style="cursor:pointer">
+          <span>Triple</span>
+          <span>S</span>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
