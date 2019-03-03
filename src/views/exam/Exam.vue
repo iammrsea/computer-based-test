@@ -2,10 +2,10 @@
   <v-container>
     <v-card>
       <v-container>
-        <v-img :src="require('@/assets/img/exam2.jpg')" aspect-ratio="2.75" v-scroll-reveal></v-img>
+        <v-img :src="require('@/assets/img/exam2.jpg')" aspect-ratio="2.75"></v-img>
         <v-card-title primary-title>
           <div>
-            <h3 class="headline mb-0 text-xs-center">The Show is about to begin, fasten your belt</h3>
+            <h3 class="headline mb-0 text-xs-center">The show is about to begin, fasten your belt</h3>
           </div>
         </v-card-title>
         <v-card-actions>
@@ -73,16 +73,7 @@ export default {
   data() {
     return {
       selected: ["English Language"],
-      radioGroup: 2,
-      right: {
-        origin: "right"
-      },
-      left: {
-        origin: "left"
-      },
-      bottom: {
-        origin: "bottom"
-      }
+      radioGroup: 2
     };
   },
   computed: {
@@ -95,7 +86,6 @@ export default {
   },
   methods: {
     onStart() {
-      // this.$store.commit("userSelectedSubjects", []);
       this.$router.push("start-exam");
     }
   }

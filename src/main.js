@@ -27,6 +27,9 @@ const vm = new Vue({
       if (user) {
         this.$store.dispatch("autoSignin", user);
         this.$store.dispatch("fetchUserPerformances");
+        let date = ("" + new Date()).split(" ");
+        let myDate = date[4] + " " + date[5];
+        this.$store.commit("timeSignedIn", myDate);
         loadSubjects(vm);
       }
     });

@@ -2,7 +2,8 @@ import { auth, firestore } from "../../services/firebase";
 
 export default {
   state: {
-    user: null
+    user: null,
+    timeSignedIn: null
   },
   mutations: {
     setUser(state, userPayload) {
@@ -15,6 +16,9 @@ export default {
         });
         state.user.performance.splice(indexOfStatToRemove, 1);
       }
+    },
+    timeSignedIn(state, timePayload) {
+      state.timeSignedIn = timePayload;
     }
   },
   actions: {
@@ -55,7 +59,6 @@ export default {
         .catch(error => {
           commit("setLoading", false, { root: true });
           commit("setError", error, { root: true });
-          // console.log(error);
         });
     },
     setUser({ commit }, userPayload) {
@@ -171,6 +174,9 @@ export default {
           return statB.date - statA.date;
         });
       }
+    },
+    timeSignedIn(state) {
+      return state.timeSignedIn;
     }
   }
 };

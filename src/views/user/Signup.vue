@@ -4,7 +4,12 @@
       <v-layout row wrap>
         <v-flex xs12 sm6 offset-sm3>
           <div class="mb-2" v-if="error">
-            <app-alert :type="'error'" :message="error.message" @alert-dismissed="onDismissed" :dismissible="true"></app-alert>
+            <app-alert
+              :type="'error'"
+              :message="error.message"
+              @alert-dismissed="onDismissed"
+              :dismissible="true"
+            ></app-alert>
           </div>
           <v-card>
             <v-card-text>
@@ -93,6 +98,9 @@ export default {
   watch: {
     user(newUser) {
       if (newUser !== null && newUser !== undefined) {
+        let date = ("" + new Date()).split(" ");
+        let myDate = date[4] + " " + date[5];
+        this.$store.commit("timeSignedIn", myDate);
         this.$router.push("/user");
       }
     }

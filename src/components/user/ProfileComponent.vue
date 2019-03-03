@@ -18,7 +18,10 @@
         <v-divider></v-divider>
         <v-card-text>
           <v-layout column>
-            <v-flex xs12 class="pa-2 mb-2">Time Logged in:</v-flex>
+            <div v-if="timeSignedIn!==null && timeSignedIn!== undefined">
+              <v-flex xs12 class="pa-2 mb-2 text-xs-center">Time Logged in:</v-flex>
+              <div class="font-weight-bold text-xs-center mb-2">{{timeSignedIn}}</div>
+            </div>
             <v-divider></v-divider>
             <v-flex xs12 sm6 offset-sm3 class="py-2 my-3">
               <span class="primary--text hidden-sm-only">Featured Performance Stats:</span>
@@ -91,6 +94,9 @@ export default {
     },
     featuredStats() {
       return this.$store.getters["featuredStats"];
+    },
+    timeSignedIn() {
+      return this.$store.getters["timeSignedIn"];
     }
   },
 
