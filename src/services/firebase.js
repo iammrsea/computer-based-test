@@ -4,12 +4,12 @@ import "firebase/auth";
 
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyBHXn83pDX3ec3Z8qX6du3g_X6BqK1YXgo",
-  authDomain: "blogapp-c20e3.firebaseapp.com",
-  databaseURL: "https://blogapp-c20e3.firebaseio.com",
-  projectId: "blogapp-c20e3",
-  storageBucket: "blogapp-c20e3.appspot.com",
-  messagingSenderId: "602741533218"
+  apiKey: "AIzaSyCYLVn7DNOd2gDuqTHhVEow6LTPDu5v7GI",
+  authDomain: "master-cbt.firebaseapp.com",
+  databaseURL: "https://master-cbt.firebaseio.com",
+  projectId: "master-cbt",
+  storageBucket: "master-cbt.appspot.com",
+  messagingSenderId: "184040811370"
 };
 !firebase.apps.length ? firebase.initializeApp(config) : "";
 export const auth = firebase.auth();

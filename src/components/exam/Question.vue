@@ -4,15 +4,15 @@
       <div v-if="question.passage!==''&& question.passage!== undefined">
         <v-card-text>{{question.passage}}</v-card-text>
       </div>
-      <v-card-text v-html="question.question" class="ma-0"></v-card-text>
-      <v-card-text class="ma-0">
+      <div v-html="question.question" class="ma-0"></div>
+      <div class="ma-0">
         <v-radio-group v-model="question.selectedOption" class="ma-0">
           <v-radio :label="question.option_one" color="teal" :value="1"></v-radio>
           <v-radio :label="question.option_two" color="teal" :value="2"></v-radio>
           <v-radio :label="question.option_three" color="teal" :value="3"></v-radio>
           <v-radio :label="question.option_four" color="teal" :value="4"></v-radio>
         </v-radio-group>
-      </v-card-text>
+      </div>
     </v-container>
   </v-card>
 </template>
