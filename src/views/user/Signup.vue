@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex xs12 sm6 offset-sm3>
           <div class="mb-2" v-if="error">
-            <app-alert :type="'error'" :message="error.message" @alert-dismissed="onDismissed"></app-alert>
+            <app-alert :type="'error'" :message="error.message" @alert-dismissed="onDismissed" :dismissible="true"></app-alert>
           </div>
           <v-card>
             <v-card-text>
