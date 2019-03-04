@@ -18,10 +18,18 @@
                   <v-img :src="require('@/assets/img/exam.jpg')"></v-img>
                 </v-container>
               </v-flex>
+
               <v-flex
                 xs12
                 class="headline text-xs-center mt-3"
-              >Welcome to our awesome computer based test (CBT). Please Sign in/Sign up to practice the test</v-flex>
+                v-if="user!==null && user!==undefined"
+              >Welcome to our awesome computer based test (CBT). Please visit your profile to practice the test</v-flex>
+
+              <v-flex
+                v-else
+                xs12
+                class="headline text-xs-center mt-3"
+              >Welcome to our awesome computer based test (CBT). Please sign in/up to practice the test</v-flex>
             </v-layout>
           </v-card-title>
           <v-card-text>

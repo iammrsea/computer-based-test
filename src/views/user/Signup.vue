@@ -36,7 +36,7 @@
                   clearable
                   append-icon="visibility_off"
                   required
-                  :rules="[v => !!v || 'Email is required']"
+                  :rules="[v => !!v || 'Password is required']"
                 ></v-text-field>
                 <v-text-field
                   type="password"
