@@ -42,6 +42,7 @@ i {
 }
 #feeback {
   padding: 20px;
+  margin-top:30px;
 }
 #footer {
   padding: 10px;
