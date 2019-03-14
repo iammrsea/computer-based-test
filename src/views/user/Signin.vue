@@ -16,9 +16,15 @@
               :dismissible="true"
             ></app-alert>
           </div>
-          <v-card>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>
+                <v-spacer></v-spacer>
+                <span class="text-xs-center">Sign In</span>
+              </v-toolbar-title>
+            </v-toolbar>
+
             <v-card-text>
-              <p class="text-xs-center">Sign In</p>
               <v-form ref="form" v-model="valid" lazy-validation>
                 <v-text-field
                   type="email"

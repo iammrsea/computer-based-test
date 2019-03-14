@@ -20,7 +20,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    <v-navigation-drawer app class v-model="drawer">
+    <v-navigation-drawer app class v-model="drawer" clipped disable-resize-watcher>
       <v-list>
         <v-list-tile v-for="(link,index) in links" :key="index" :to="link.route">
           <v-list-tile-action>

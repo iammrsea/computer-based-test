@@ -1,7 +1,7 @@
 <template>
   <footer id="footer">
-    <v-layout>
-      <v-flex xs12>
+    <v-layout row wrap>
+      <v-flex xs12 class="mt-3">
         <span
           id="feedback"
           class="white--text text-xs-center text-uppercase"
@@ -42,7 +42,7 @@ i {
 }
 #feeback {
   padding: 20px;
-  margin-top:30px;
+  margin-top: 30px;
 }
 #footer {
   padding: 10px;

@@ -1,6 +1,6 @@
 <template>
-  <div class="team">
-    <v-container class="mt-5">
+  <div class="mt-5">
+    <v-container>
       <v-layout row wrap>
         <v-flex xs12 sm6 offset-sm3>
           <div class="mb-2" v-if="error">
@@ -11,9 +11,15 @@
               :dismissible="true"
             ></app-alert>
           </div>
-          <v-card>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>
+                <v-spacer></v-spacer>
+                <span class="text-xs-center">Sign Up</span>
+                <v-spacer></v-spacer>
+              </v-toolbar-title>
+            </v-toolbar>
             <v-card-text>
-              <p class="text-xs-center">Sign Up</p>
               <v-form ref="form" v-model="valid" lazy-validation>
                 <v-text-field
                   type="email"
@@ -57,7 +63,7 @@
                       @click="signUp"
                       :disabled="loading"
                       :loading="loading"
-                    >Sign In</v-btn>
+                    >Sign Up</v-btn>
                   </v-flex>
                 </v-layout>
               </v-form>
