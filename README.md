@@ -1,4 +1,4 @@
-# todo-vuetify
+# cbt-vuetify
 
 ## Project setup
 ```
